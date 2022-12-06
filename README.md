@@ -1,7 +1,12 @@
-# react-18-redux-jwt-authentication-example
+# TodoApp - Frontend
 
-React 18 + Redux - JWT Authentication Example & Tutorial
+TodoAPP, frontend realizado con React 18, se ha utilizado JWT para la autenticación.
 
-Documentation at https://jasonwatmore.com/post/2022/06/15/react-18-redux-jwt-authentication-example-tutorial
+SweetAlert para los cuadros de dialogo y las alertas al realizar las distintas acciones.
 
-Documentación en español en https://jasonwatmore.es/post/2022/06/15/react-18-redux-ejemplo-y-tutorial-de-autenticacion-jwt
+Para instalar:
+
+Hay que lanzar `npm install`
+Una vez instalado, lanzar ´npm start´
+
+Importante: Para lanzar el frontend, es necesario tener levantado el backend.
