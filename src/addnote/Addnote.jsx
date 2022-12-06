@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
 import { authActions } from '_store';
@@ -14,23 +15,25 @@ function Addnote() {
     const authUser = useSelector(x => x.auth.user);
     const authError = useSelector(x => x.auth.error);
 
-    // form validation rules 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('El titulo de la nota es requerido'),
         description: Yup.string().required('La descripción de la nota es requerido'),
-    
+
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
-    // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
     function onSubmit({ title, description }) {
-        console.log(authUser);
         const id = authUser.id;
         const token = authUser.accessToken;
-        return dispatch(authActions.addnote({ token, title, description, id }));
+        Swal.fire(
+            'Nota Añadida!',
+            'Su nota se añadió correctamente.',
+            'success'
+        )
+        return dispatch(authActions.addnote({ token, title, description, id }))
     }
 
     return (

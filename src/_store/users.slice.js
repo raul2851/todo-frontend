@@ -32,7 +32,6 @@ function createExtraActions() {
     };    
 
     function allNotes() {
-        console.log('ebtir');
         return createAsyncThunk(
             `notes/allnotes`,
             async ({ id_user }) => await fetchWrapper.get(`${baseUrl}/notes/allnotes`, { id_user })

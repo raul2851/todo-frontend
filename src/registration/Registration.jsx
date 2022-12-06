@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
 import { authActions } from '_store';
@@ -15,13 +16,11 @@ function Registration() {
     const authError = useSelector(x => x.auth.error);
 
     useEffect(() => {
-        // redirect to home if already logged in
         if (authUser) history.navigate('/');
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // form validation rules 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('El usuario es requerido'),
         name: Yup.string().required('El nombre es requerido'),
@@ -32,12 +31,17 @@ function Registration() {
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
-    // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
     function onSubmit({ username, password, name, surname, email, repassword }) {
-        return dispatch(authActions.register({ username, password, name, surname, email, repassword }));
+        dispatch(authActions.register({ username, password, name, surname, email, repassword }));
+        Swal.fire(
+            'Registrado con exito!',
+            'Se ha registrado con exito.',
+            'success'
+        )
+        history.navigate('/login');
     }
 
     return (

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const Card = ({ title, description, status }) => {
+const Card = ({ title, idNote, description, status, onClickDelete, onClickUpdate }) => {
 
   const [edit, setEdit] = useState(false);
   const [titleInput, setTitleInput] = useState(title);
   const [descriptionInput, setDescriptionInput] = useState(description);
+  const [statusInput, setStatusInput] = useState(status);
 
   const deleteNote = () => {
     Swal.fire({
@@ -18,11 +19,7 @@ const Card = ({ title, description, status }) => {
       confirmButtonText: 'Si, eliminar.'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Nota eliminada!',
-          'Su nota se eliminó correctamente.',
-          'success'
-        )
+        onClickDelete(idNote);
       }
     })
   }
@@ -33,6 +30,15 @@ const Card = ({ title, description, status }) => {
 
   const saveEditNote = () => {
     setEdit(false);
+    let statusFinal = true;
+    if (statusInput === 'Completado') {
+      statusFinal = true;
+      setStatusInput(true);
+    } else {
+      statusFinal = false;
+      setStatusInput(false);
+    }
+    onClickUpdate(titleInput, descriptionInput, statusFinal, idNote);
     Swal.fire(
       'Nota Editada!',
       'Su nota se editó correctamente.',
@@ -45,13 +51,15 @@ const Card = ({ title, description, status }) => {
 
     if (input === 'title') {
       setTitleInput(value);
-    } else {
+    } else if (input === 'description') {
       setDescriptionInput(value);
+    } else {
+      setStatusInput(value);
     }
   }
 
   return (
-    <div className={`cardElement cardElement__status--${status}`}>
+    <div className={status === false ? `cardElement cardElement__status--noCompleted` : `cardElement cardElement__status--completed`}>
       <div className='cardElement__title'>
 
         {edit === true ? (
@@ -66,8 +74,17 @@ const Card = ({ title, description, status }) => {
       {edit === true ? (
         <textarea onChange={(e) => changeInput(e, 'description')} value={descriptionInput}></textarea>
       ) : <p>{descriptionInput}</p>}
-      <p>{status === 'completed' ? 'Completado' : 'No completado'}</p>
-      {edit === true ? <button onClick={() => saveEditNote()} className="btn-info">Guardar</button> : null}
+
+      {edit === true ? (
+        <select onChange={(e) => changeInput(e, 'status')} value={statusInput}>
+          <option name="completed">Completado</option>
+          <option name="noCompleted">No Completado</option>
+        </select>
+      ) : <p>{statusInput === true ? 'Completado' : 'No completado'}</p>}
+      <div className="cardElement__saveButton">
+        {edit === true ? <button onClick={() => saveEditNote()} className="btn btn-info">Guardar</button> : null}
+      </div>
+      
     </div>
   )
 }

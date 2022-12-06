@@ -20,18 +20,24 @@ function App() {
             <Nav />
             <div className="container pt-4 pb-4">
                 <Routes>
-                <Route
+                    <Route
                         path="/"
                         element={
                             <PrivateRoute>
                                 <Home />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/addnote"
+                        element={
+                            <PrivateRoute>
                                 <Addnote />
                             </PrivateRoute>
                         }
                     />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Registration />} />
-                    <Route path="/addnote" element={<Addnote />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>

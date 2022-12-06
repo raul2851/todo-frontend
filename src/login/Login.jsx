@@ -21,14 +21,12 @@ function Login() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // form validation rules 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('El usuario es requerido'),
         password: Yup.string().required('La contraseña es requerida')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
-    // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
@@ -43,7 +41,7 @@ function Login() {
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
-                            <label>Correo electronico * </label>
+                            <label>Nombre de usuario * </label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
