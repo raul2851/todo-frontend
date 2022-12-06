@@ -1,0 +1,50 @@
+.app-container {
+    min-height: 350px;
+}
+
+
+#template__page {
+    width: 100%;
+    height: 87vh;
+}
+
+.template__card {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.cardElement {
+    width: 25%;
+    height: auto;
+    margin: 20px;
+    padding: 10px;
+}
+
+.cardElement__status--completed {
+    background-color: rgb(188, 238, 195);
+}
+
+.cardElement__status--noCompleted {
+    background-color: rgb(233, 190, 190);
+}
+
+@media only screen and (max-width: 768px) {
+    .cardElement {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.cardElement__title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardElement__buttons i {
+    margin: 5px;
+    cursor: pointer;
+}
+
+
